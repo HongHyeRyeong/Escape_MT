@@ -7,6 +7,11 @@ public class EnemyController : MonoBehaviour
         Invoke("EnemyDestroy", 3);
     }
 
+    void Update()
+    {
+        
+    }
+
     void EnemyDestroy()
     {
         Destroy(this.gameObject);

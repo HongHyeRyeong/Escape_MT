@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class EnemySpawnController : MonoBehaviour
 {
+
     public GameObject[] enemy;
     public GameObject[] spawnPos;
 
@@ -19,9 +22,14 @@ public class EnemySpawnController : MonoBehaviour
     [SerializeField] private UpNDown upn;
     [SerializeField] private float speed;
 
+    void Start()
+    {
+
+    }
+
     void Update()
     {
-        if (curEnemy != null)
+        if(curEnemy != null)
         {
             float y = curEnemy.transform.position.y;
 
@@ -39,6 +47,8 @@ public class EnemySpawnController : MonoBehaviour
                 }
             }
         }
+
+        
     }
 
     private void RandomSpawn()
@@ -53,6 +63,9 @@ public class EnemySpawnController : MonoBehaviour
         if (other.gameObject.CompareTag("SpawnPoint"))
         {
             RandomSpawn();
+            Debug.Log("Spawn");
         }
     }
+
+
 }
