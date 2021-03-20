@@ -13,6 +13,14 @@ public class EnemySpawnController : MonoBehaviour
 
     public GameObject curEnemy;
 
+    enum UpNDown
+    {
+        Up,
+        Down
+    }
+
+    UpNDown upn;
+
     void Start()
     {
 
@@ -27,8 +35,20 @@ public class EnemySpawnController : MonoBehaviour
     {
         randEnemy = Random.Range(0, 3);
         randPos = Random.Range(0, 2);
-        curEnemy = Instantiate(enemy[randEnemy], spawnPos[randPos].transform);
+        curEnemy = Instantiate(enemy[randEnemy], this.transform);
 
+        Vector3 destination = spawnPos[randPos].transform.position;
+        if(destination.y != curEnemy.transform.position.y)
+        {
+            if(upn == UpNDown.Up)
+            {
+
+            }
+            else if(upn == UpNDown.Down)
+            {
+
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
