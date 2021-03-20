@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     public void Init()
     {
         moveSpeed = Default_MoveSpeed;
-        alcoholGauge = 0f;
+        UpdateAlcoholGauge(0);
         isReverseKey = false;
     }
 
@@ -61,7 +61,39 @@ public class PlayerController : MonoBehaviour
             GameManager.Instance.GameOver();
         }
 
-        alcoholGauge = Mathf.Min(100, alcoholGauge + Attack_AlcoholGauge);
+        UpdateAlcoholGauge(Mathf.Min(100, alcoholGauge + Attack_AlcoholGauge));
+    }
+
+    public void DecreaseAlcoholGauge()
+    {
+        Debug.Log("DecreaseAlcoholGauge");
+
+        UpdateAlcoholGauge(Mathf.Max(0, alcoholGauge - Decrease_AlcoholGauge));
+    }
+
+    public void PickupItem(int itemType)
+    {
+        Debug.Log("PickupItem itemType : " + itemType);
+
+        switch (itemType)
+        {
+            case 1: // 숙취해소제 소
+                UpdateAlcoholGauge(Mathf.Max(0, alcoholGauge - Attack_AlcoholGauge));
+                break;
+            case 2: // 숙취해소제 대
+                UpdateAlcoholGauge(0);
+                break;
+            case 3: // 화살표
+                ScoreManager.Instance.AddScore(AddScore_ArrowItem);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void UpdateAlcoholGauge(float gauge)
+    {
+        alcoholGauge = gauge;
         UIManager.Instance.UpdateAlcoholGauge(alcoholGauge);
 
         // 기본
@@ -70,7 +102,7 @@ public class PlayerController : MonoBehaviour
 
         if (30 <= alcoholGauge) // 1단계
         {
-            moveSpeed = Default_MoveSpeed * 0.15f;
+            moveSpeed = Default_MoveSpeed * 0.85f;
         }
 
         if (60 <= alcoholGauge) // 2단계
@@ -84,40 +116,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void DecreaseAlcoholGauge()
-    {
-        alcoholGauge -= Mathf.Max(0, Decrease_AlcoholGauge);
-        UIManager.Instance.UpdateAlcoholGauge(alcoholGauge);
-    }
-
-    public void PickupItem(int itemType)
-    {
-        Debug.Log("PickupItem itemType : " + itemType);
-
-        switch (itemType)
-        {
-            case 1: // 숙취해소제 소
-                alcoholGauge -= Mathf.Max(0, Attack_AlcoholGauge);
-                UIManager.Instance.UpdateAlcoholGauge(alcoholGauge);
-                break;
-            case 2: // 숙취해소제 대
-                alcoholGauge = 0;
-                UIManager.Instance.UpdateAlcoholGauge(alcoholGauge);
-                break;
-            case 3: // 화살표
-                ScoreManager.Instance.AddScore(AddScore_ArrowItem);
-                break;
-            default:
-                break;
-        }
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Item"))
         {
             PickupItem(other.gameObject.GetComponent<Item>().itemType);
             Destroy(other.gameObject);
+        }
+        else if (other.gameObject.CompareTag("Enemy"))
+        {
+            AttackSenior();
         }
     }
 }

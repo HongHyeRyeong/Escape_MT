@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
+    private readonly int Decrease_AlcoholGauge = 50;
+
     private static ScoreManager instance;
     public static ScoreManager Instance
     {
@@ -15,23 +17,31 @@ public class ScoreManager : MonoBehaviour
     }
 
     public float score;
-    private List<float> scores;
-
-    private float tempScore;
+    private float preScore;
     private float scoreAmount;
+    private List<float> scores;
 
     public void Init()
     {
         score = 0;
+        preScore = 0;
         scores = new List<float>();
         scoreAmount = PlayerPrefs.GetFloat("speed");
     }
 
     void Update()
     {
-        tempScore += scoreAmount * Time.deltaTime;
-        score = Mathf.Round(tempScore);
+        if (!GameManager.Instance.isPlay)
+            return;
+
+        score += scoreAmount * Time.deltaTime;
         UIManager.Instance.UpdateScore(score);
+
+        if(preScore + Decrease_AlcoholGauge <= score)
+        {
+            preScore = score;
+            PlayerController.Instance.DecreaseAlcoholGauge();
+        }
     }
 
     public void AddScore(float addScore)
@@ -43,6 +53,6 @@ public class ScoreManager : MonoBehaviour
     public void GameOver()
     {
         scores.Add(score);
-        UIManager.Instance.ShowGameResult(scores);
+        UIManager.Instance.ShowEnding(scores);
     }
 }

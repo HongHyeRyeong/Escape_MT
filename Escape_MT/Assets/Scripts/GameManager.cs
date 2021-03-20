@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private readonly float ItemSpawnTIme = 1f;
+    private readonly float ItemSpawnTIme = 2f;
 
     private static GameManager instance;
     public static GameManager Instance
@@ -53,10 +51,5 @@ public class GameManager : MonoBehaviour
         isPlay = false;
 
         ScoreManager.Instance.GameOver();
-    }
-
-    public void GameRestart()
-    {
-        Init();
     }
 }
