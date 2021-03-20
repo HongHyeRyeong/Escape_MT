@@ -19,7 +19,8 @@ public class EnemySpawnController : MonoBehaviour
         Down
     }
 
-    UpNDown upn;
+    [SerializeField] private UpNDown upn;
+    [SerializeField] private float speed;
 
     void Start()
     {
@@ -28,7 +29,26 @@ public class EnemySpawnController : MonoBehaviour
 
     void Update()
     {
+        if(curEnemy != null)
+        {
+            float y = curEnemy.transform.position.y;
 
+            Vector3 destination = spawnPos[randPos].transform.position;
+
+            if (destination.y - y > 0.01f || destination.y - y < -0.01f)
+            {
+                if (upn == UpNDown.Up)
+                {
+                    curEnemy.transform.Translate(Vector3.down * speed * Time.deltaTime);
+                }
+                if (upn == UpNDown.Down)
+                {
+                    curEnemy.transform.Translate(Vector3.up * speed * Time.deltaTime);
+                }
+            }
+        }
+
+        
     }
 
     private void RandomSpawn()
@@ -36,19 +56,6 @@ public class EnemySpawnController : MonoBehaviour
         randEnemy = Random.Range(0, 3);
         randPos = Random.Range(0, 2);
         curEnemy = Instantiate(enemy[randEnemy], this.transform);
-
-        Vector3 destination = spawnPos[randPos].transform.position;
-        if(destination.y != curEnemy.transform.position.y)
-        {
-            if(upn == UpNDown.Up)
-            {
-
-            }
-            else if(upn == UpNDown.Down)
-            {
-
-            }
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

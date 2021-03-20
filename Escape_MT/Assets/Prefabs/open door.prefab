@@ -106,6 +106,8 @@ MonoBehaviour:
   - {fileID: 8031680777518622315}
   - {fileID: 8031680779228195785}
   curEnemy: {fileID: 0}
+  upn: 0
+  speed: 4
 --- !u!61 &1181343480567868476
 BoxCollider2D:
   m_ObjectHideFlags: 0
