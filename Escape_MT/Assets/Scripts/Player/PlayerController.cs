@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!GameManager.Instance.isPlay)
+        if (!GameManager.Instance.isPlay || GameManager.Instance.isMiniGame)
             return;
 
         Move();
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
         UpdateAlcoholGauge(Mathf.Max(0, alcoholGauge - Decrease_AlcoholGauge));
     }
 
-    private void AttackSenior()
+    public void AttackSenior()
     {
         if (alcoholGauge == 100 && GameManager.Instance.isPlay)
         {
@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!GameManager.Instance.isPlay)
+        if (!GameManager.Instance.isPlay || GameManager.Instance.isMiniGame)
             return;
 
         if (other.gameObject.CompareTag("Item"))
@@ -130,7 +130,20 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Enemy"))
         {
-            AttackSenior();
+            int random = Random.Range(1, 5);
+
+            if (random == 1)
+            {
+                GameManager.Instance.StartMinigame(1);
+            }
+            else if(random == 2)
+            {
+                GameManager.Instance.StartMinigame(2);
+            }
+            else
+            {
+                AttackSenior();
+            }
         }
     }
 }

@@ -41,22 +41,16 @@ public class EnemySpawnController : MonoBehaviour
         }
     }
 
-    private void RandomSpawn()
-    {
-        randEnemy = Random.Range(0, 3);
-        randPos = Random.Range(0, 2);
-        curEnemy = Instantiate(enemy[randEnemy], this.transform);
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!GameManager.Instance.isPlay)
+        if (!GameManager.Instance.isPlay || GameManager.Instance.isMiniGame)
             return;
 
         if (other.gameObject.CompareTag("SpawnPoint"))
         {
-            RandomSpawn();
-            Debug.Log("Spawn");
+            randEnemy = Random.Range(0, 3);
+            randPos = Random.Range(0, 2);
+            curEnemy = Instantiate(enemy[randEnemy], this.transform);
         }
     }
 }

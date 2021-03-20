@@ -130,6 +130,15 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public IEnumerator ShowMiniGameEnding(bool fail)
+    {
+        countDown.gameObject.SetActive(true);
+        countDown.text = fail ? "실패..." : "성공!";
+
+        yield return new WaitForSeconds(1f);
+        countDown.gameObject.SetActive(false);
+    }
+
     public void ShowEnding(List<float> scores)
     {
         ending.SetActive(true);

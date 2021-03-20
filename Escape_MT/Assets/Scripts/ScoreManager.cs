@@ -28,7 +28,7 @@ public class ScoreManager : MonoBehaviour
 
     void Update()
     {
-        if (!GameManager.Instance.isPlay)
+        if (!GameManager.Instance.isPlay || GameManager.Instance.isMiniGame)
             return;
 
         score += scoreAmount * Time.deltaTime;
