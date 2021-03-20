@@ -1,18 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-    void Start()
+    private static SceneController instance;
+    public static SceneController Instance
     {
-        
+        get
+        {
+            if (instance == null)
+                instance = (SceneController)FindObjectOfType(typeof(SceneController));
+            return instance;
+        }
     }
 
-    void Update()
+    private void Awake()
     {
-        
+        DontDestroyOnLoad(this);
     }
 
     public void ToIngameScene()
@@ -26,11 +30,6 @@ public class SceneController : MonoBehaviour
     }
 
     public void ToMinigameScene()
-    {
-
-    }
-
-    public void ToGameoverScene()
     {
 
     }

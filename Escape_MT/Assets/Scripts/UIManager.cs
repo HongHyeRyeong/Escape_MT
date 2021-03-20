@@ -133,7 +133,7 @@ public class UIManager : MonoBehaviour
 
     public void OnClickTitle()
     {
-
+        SceneController.Instance.ToTitleScene();
     }
 
     public void OnClickExit()
