@@ -29,8 +29,15 @@ public class ScoreManager : MonoBehaviour
 
     void Update()
     {
+<<<<<<< Updated upstream
         tempScore += scoreAmount * Time.deltaTime;
         score = Mathf.Round(tempScore);
+=======
+        if (!GameManager.Instance.isPlay)
+            return;
+
+        score += scoreAmount * Time.deltaTime;
+>>>>>>> Stashed changes
         UIManager.Instance.UpdateScore(score);
     }
 
@@ -43,6 +50,6 @@ public class ScoreManager : MonoBehaviour
     public void GameOver()
     {
         scores.Add(score);
-        UIManager.Instance.ShowGameResult(scores);
+        UIManager.Instance.ShowEnding(scores);
     }
 }

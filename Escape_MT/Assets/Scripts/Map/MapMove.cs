@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MapMove : MonoBehaviour
 {
@@ -28,8 +26,6 @@ public class MapMove : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.gameObject);
-
         if (other.gameObject.CompareTag("EndPos"))
         {
             this.transform.position = new Vector3(StartPos.position.x, transform.position.y, transform.position.z);
@@ -42,12 +38,12 @@ public class MapMove : MonoBehaviour
     {
         int range1 = Random.Range(0, 4);
         int range2 = Random.Range(0, 4);
-/*
-        while(range1 != range2)
-        {
-            range2 = Random.Range(0, 4);
-        }
-*/
+        /*
+                while(range1 != range2)
+                {
+                    range2 = Random.Range(0, 4);
+                }
+        */
         doors[range1].SetActive(true);
         doors[range2].SetActive(true);
     }
@@ -59,5 +55,4 @@ public class MapMove : MonoBehaviour
             doors[i].SetActive(false);
         }
     }
-
 }
