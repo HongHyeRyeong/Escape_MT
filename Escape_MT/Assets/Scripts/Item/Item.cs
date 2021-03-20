@@ -10,16 +10,15 @@ public class Item : MonoBehaviour
 
     private void Awake()
     {
-        int randomItemType = Random.Range(1, 3);
-        SetData(randomItemType);
-
-        moveSpeed = Random.Range(2f, 4f);
+        SetData();
     }
 
-    public void SetData(int itemType)
+    public void SetData()
     {
-        this.itemType = itemType;
+        this.itemType = Random.Range(1, 3);
         item.sprite = sprites[itemType];
+
+        moveSpeed = Random.Range(2f, 4f);
     }
 
     private void Update()

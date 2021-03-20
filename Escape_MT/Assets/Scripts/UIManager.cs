@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public Text countDown;
     public Text score;
     public Text playTime;
     public Image alcoholGauge;
@@ -27,14 +28,35 @@ public class UIManager : MonoBehaviour
     private float curGauge;
     private float saveGauge;
 
+    private void Awake()
+    {
+        StartCoroutine(StartCountDown());
+    }
+
+    public IEnumerator StartCountDown()
+    {
+        GameManager.Instance.Init();
+
+        int time = 3;
+        while (time > 0)
+        {
+            countDown.text = time.ToString();
+            yield return new WaitForSeconds(1f);
+            time--;
+        }
+
+        countDown.gameObject.SetActive(false);
+
+        GameManager.Instance.StartGame();
+        StartCoroutine(UpdatePlayTime());
+    }
+
     public void Init()
     {
-        score.text = "Score  0";
+        UpdateScore(0);
         UpdateAlcoholGauge(0);
         ending.SetActive(false);
         gameResult.SetActive(false);
-
-        StartCoroutine(UpdatePlayTime());
     }
 
     public void UpdateScore(float curScore)
@@ -47,7 +69,7 @@ public class UIManager : MonoBehaviour
         int time = 0;
         while (GameManager.Instance.isPlay)
         {
-            playTime.text = "Play Time " + time.ToString() + "초";
+            playTime.text = "Play Time " + (time / 60 > 0 ? (time / 60).ToString() + "분 " : "") + (time % 60).ToString() + "초";
             yield return new WaitForSeconds(1f);
             time++;
         }
@@ -133,11 +155,13 @@ public class UIManager : MonoBehaviour
 
     public void OnClickTitle()
     {
+        SoundManager.Instance.SetEffect("Click");
         SceneController.Instance.ToTitleScene();
     }
 
     public void OnClickExit()
     {
+        SoundManager.Instance.SetEffect("Click");
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else

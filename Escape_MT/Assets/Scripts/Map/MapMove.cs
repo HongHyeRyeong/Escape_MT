@@ -42,12 +42,7 @@ public class MapMove : MonoBehaviour
     {
         int range1 = Random.Range(0, 4);
         int range2 = Random.Range(0, 4);
-/*
-        while(range1 != range2)
-        {
-            range2 = Random.Range(0, 4);
-        }
-*/
+
         doors[range1].SetActive(true);
         doors[range2].SetActive(true);
     }
@@ -59,5 +54,4 @@ public class MapMove : MonoBehaviour
             doors[i].SetActive(false);
         }
     }
-
 }

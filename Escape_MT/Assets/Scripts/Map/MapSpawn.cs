@@ -1,30 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MapSpawn : MonoBehaviour
 {
+    public GameObject Map;
+    public Transform spawnPoint;
 
-    public GameObject           Map;
-    public Transform            spawnPoint;
-
-    private float               cTime;
-    public float                maxTime;
-
-    void Start()
-    {
-        
-    }
+    private float cTime;
+    public float maxTime;
 
     void Update()
     {
-
-        if(cTime >= maxTime)
+        if (cTime >= maxTime)
         {
             InstantiateMap();
             cTime = 0f;
         }
-
 
         cTime += Time.deltaTime;
     }

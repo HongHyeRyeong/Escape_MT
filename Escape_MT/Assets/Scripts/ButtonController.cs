@@ -1,36 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ButtonController : MonoBehaviour
 {
-
-    [SerializeField] private GameObject optionWindow;
-    [SerializeField] private GameObject manual;
-
-    private bool optionActive;
-    private bool manualActive;
-
-    void Start()
-    {
-        optionActive = false;
-        manualActive = false;
-    }
-
-    void Update()
-    {
-        optionWindow.SetActive(optionActive);
-        manual.SetActive(manualActive);
-    }
+    [SerializeField]
+    private GameObject optionWindow;
+    [SerializeField]
+    private GameObject manual;
+    [SerializeField]
+    private Slider volume;
 
     public void OptionController()
     {
-        optionActive = !optionActive;
+        SoundManager.Instance.SetEffect("Click");
+        manual.SetActive(false);
+        optionWindow.SetActive(!optionWindow.activeSelf);
     }
 
     public void ManualController()
     {
-        manualActive = !manualActive;
+        SoundManager.Instance.SetEffect("Click");
+        optionWindow.SetActive(false);
+        manual.SetActive(!manual.activeSelf);
+    }
+
+    public void VolumeController()
+    {
+        SoundManager.Instance.SetVolume(volume.value);
     }
 }

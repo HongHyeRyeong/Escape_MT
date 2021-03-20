@@ -31,14 +31,14 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!GameManager.Instance.isPlay)
+            return;
+
         Move();
     }
 
     private void Move()
     {
-        if (!GameManager.Instance.isPlay)
-            return;
-
         int reverse = isReverseKey ? -1 : 1;
 
         float horizontal = Input.GetAxisRaw("Horizontal") * reverse;
@@ -54,16 +54,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void AttackSenior()
-    {
-        if (alcoholGauge == 100)
-        {
-            GameManager.Instance.GameOver();
-        }
-
-        UpdateAlcoholGauge(Mathf.Min(100, alcoholGauge + Attack_AlcoholGauge));
-    }
-
     public void DecreaseAlcoholGauge()
     {
         Debug.Log("DecreaseAlcoholGauge");
@@ -71,7 +61,17 @@ public class PlayerController : MonoBehaviour
         UpdateAlcoholGauge(Mathf.Max(0, alcoholGauge - Decrease_AlcoholGauge));
     }
 
-    public void PickupItem(int itemType)
+    private void AttackSenior()
+    {
+        if (alcoholGauge == 100 && GameManager.Instance.isPlay)
+        {
+            GameManager.Instance.GameOver();
+        }
+
+        UpdateAlcoholGauge(Mathf.Min(100, alcoholGauge + Attack_AlcoholGauge));
+    }
+
+    private void PickupItem(int itemType)
     {
         Debug.Log("PickupItem itemType : " + itemType);
 
@@ -118,8 +118,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (!GameManager.Instance.isPlay)
+            return;
+
         if (other.gameObject.CompareTag("Item"))
         {
+            SoundManager.Instance.SetEffect("Item");
+
             PickupItem(other.gameObject.GetComponent<Item>().itemType);
             Destroy(other.gameObject);
         }

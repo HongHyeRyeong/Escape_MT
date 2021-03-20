@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -19,13 +18,11 @@ public class ScoreManager : MonoBehaviour
     public float score;
     private float preScore;
     private float scoreAmount;
-    private List<float> scores;
 
     public void Init()
     {
         score = 0;
         preScore = 0;
-        scores = new List<float>();
         scoreAmount = PlayerPrefs.GetFloat("speed");
     }
 
@@ -48,11 +45,5 @@ public class ScoreManager : MonoBehaviour
     {
         score += addScore;
         UIManager.Instance.UpdateScore(score);
-    }
-
-    public void GameOver()
-    {
-        scores.Add(score);
-        UIManager.Instance.ShowEnding(scores);
     }
 }

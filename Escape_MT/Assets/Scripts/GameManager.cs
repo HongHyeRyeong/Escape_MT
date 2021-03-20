@@ -21,18 +21,16 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public bool isPlay;
 
-    private void Awake()
-    {
-        Init();
-    }
-
     public void Init()
     {
-        isPlay = true;
-
         UIManager.Instance.Init();
         ScoreManager.Instance.Init();
         PlayerController.Instance.Init();
+    }
+
+    public void StartGame()
+    {
+        isPlay = true;
 
         InvokeRepeating("SpawnItem", ItemSpawnTIme, ItemSpawnTIme);
     }
@@ -50,6 +48,11 @@ public class GameManager : MonoBehaviour
     {
         isPlay = false;
 
-        ScoreManager.Instance.GameOver();
+        SoundManager.Instance.SetBGM("");
+        SoundManager.Instance.SetEffect("Exit");
+
+        SceneController.Instance.scores.Add(ScoreManager.Instance.score);
+        SceneController.Instance.scores.Sort((a, b) => (a > b) ? -1 : 1);
+        UIManager.Instance.ShowEnding(SceneController.Instance.scores);
     }
 }
