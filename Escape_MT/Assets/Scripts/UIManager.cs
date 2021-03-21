@@ -108,7 +108,7 @@ public class UIManager : MonoBehaviour
 
         if (30 <= gauge) // 1단계
         {
-            alcoholGauge.color = Color.yellow;
+            alcoholGauge.color = new Color(1f, 0.8473231f, 0.1921569f);
 
             script.transform.parent.gameObject.SetActive(true);
             script.text = "어지럽네...";
@@ -116,7 +116,7 @@ public class UIManager : MonoBehaviour
 
         if (60 <= gauge) // 2단계
         {
-            alcoholGauge.color = new Color(1f, 0.5f, 0);
+            alcoholGauge.color = new Color(1f, 0.514015f, 0.1921569f);
 
             script.transform.parent.gameObject.SetActive(true);
             script.text = "몸이 말을 안들어...";
@@ -124,7 +124,7 @@ public class UIManager : MonoBehaviour
 
         if (100 <= gauge) // 3단계
         {
-            alcoholGauge.color = Color.red;
+            alcoholGauge.color = new Color(1f, 0.261057f, 0.1921569f);
 
             script.transform.parent.gameObject.SetActive(true);
             script.text = "우..우욱..!!";

@@ -10,6 +10,9 @@ public class Item : MonoBehaviour
 
     private void Awake()
     {
+        if (!GameManager.Instance.isPlay || GameManager.Instance.isMiniGame)
+            Destroy(gameObject);
+
         SetData();
     }
 
@@ -23,6 +26,9 @@ public class Item : MonoBehaviour
 
     private void Update()
     {
+        if (!GameManager.Instance.isPlay || GameManager.Instance.isMiniGame)
+            return;
+
         transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
     }
 

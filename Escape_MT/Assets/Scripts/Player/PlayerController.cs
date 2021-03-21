@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public Animator animator;
+
     private float moveSpeed;
     private float alcoholGauge;
     private bool isReverseKey;
@@ -65,7 +67,10 @@ public class PlayerController : MonoBehaviour
     {
         if (alcoholGauge == 100 && GameManager.Instance.isPlay)
         {
-            GameManager.Instance.GameOver();
+            animator.SetBool("Overreat", true);
+
+            GameManager.Instance.isPlay = false;
+            Invoke("GameOver", 0.5f);
         }
 
         UpdateAlcoholGauge(Mathf.Min(100, alcoholGauge + Attack_AlcoholGauge));
@@ -97,22 +102,41 @@ public class PlayerController : MonoBehaviour
         UIManager.Instance.UpdateAlcoholGauge(alcoholGauge);
 
         // 기본
+        int level = 1;
         moveSpeed = Default_MoveSpeed;
         isReverseKey = false;
 
         if (30 <= alcoholGauge) // 1단계
         {
+            level = 2;
             moveSpeed = Default_MoveSpeed * 0.85f;
         }
 
         if (60 <= alcoholGauge) // 2단계
         {
+            level = 3;
             isReverseKey = true;
         }
 
         if (100 <= alcoholGauge) // 3단계
         {
+            level = 4;
+        }
 
+        if (level == 1 || level == 2)
+        {
+            animator.SetBool("Drunk", false);
+            animator.SetBool("Drunk2", false);
+        }
+        else if (level == 3)
+        {
+            animator.SetBool("Drunk", true);
+            animator.SetBool("Drunk2", false);
+        }
+        else if (level == 4)
+        {
+            animator.SetBool("Drunk", true);
+            animator.SetBool("Drunk2", true);
         }
     }
 
@@ -145,5 +169,11 @@ public class PlayerController : MonoBehaviour
                 AttackSenior();
             }
         }
+    }
+
+    private void GameOver()
+    {
+        Debug.Log("GameOver");
+        GameManager.Instance.GameOver();
     }
 }

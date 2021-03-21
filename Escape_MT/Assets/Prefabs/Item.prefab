@@ -47,9 +47,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item: {fileID: 4628586514246978003}
   sprites:
-  - {fileID: 21300000, guid: ae58d92c3517a654ea47e23c0d653f14, type: 3}
-  - {fileID: 21300000, guid: b395f0e3aa974ac4bbd8278d34160442, type: 3}
-  - {fileID: 21300000, guid: 00d6b23d7f2c84e4395693b3aebf2d52, type: 3}
+  - {fileID: 21300000, guid: 8b9ea05259320164d905252422ed3d25, type: 3}
+  - {fileID: 21300000, guid: 72bd28db998c82e41a059bede01b031d, type: 3}
+  - {fileID: 21300000, guid: fd680be61064f2340890d7d844307901, type: 3}
   itemType: 0
 --- !u!58 &6165831915874994032
 CircleCollider2D:

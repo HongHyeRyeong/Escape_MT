@@ -29,6 +29,9 @@ public class EnemySpawnController : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.Instance.isPlay || GameManager.Instance.isMiniGame)
+            return;
+
         if (curEnemy != null)
         {
             float y = curEnemy.transform.position.y;

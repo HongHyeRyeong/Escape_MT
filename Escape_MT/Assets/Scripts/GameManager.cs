@@ -46,12 +46,15 @@ public class GameManager : MonoBehaviour
     {
         isPlay = false;
 
-        SoundManager.Instance.SetBGM("");
-        SoundManager.Instance.SetEffect("Exit");
+        StartCoroutine(SceneController.Instance.ShowFade((x) =>
+        {
+            SoundManager.Instance.SetBGM("");
+            SoundManager.Instance.SetEffect("Exit");
 
-        SceneController.Instance.scores.Add(ScoreManager.Instance.score);
-        SceneController.Instance.scores.Sort((a, b) => (a > b) ? -1 : 1);
-        UIManager.Instance.ShowEnding(SceneController.Instance.scores);
+            SceneController.Instance.scores.Add(ScoreManager.Instance.score);
+            SceneController.Instance.scores.Sort((a, b) => (a > b) ? -1 : 1);
+            UIManager.Instance.ShowEnding(SceneController.Instance.scores);
+        }));
     }
 
     private void SpawnItem()

@@ -2,13 +2,11 @@
 
 public class EnemyController : MonoBehaviour
 {
-    void Start()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        Invoke("EnemyDestroy", 3);
-    }
-
-    void EnemyDestroy()
-    {
-        Destroy(this.gameObject);
+        if (other.gameObject.CompareTag("EndPos"))
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

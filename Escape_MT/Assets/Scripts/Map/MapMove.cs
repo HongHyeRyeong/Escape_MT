@@ -19,6 +19,9 @@ public class MapMove : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.Instance.isPlay || GameManager.Instance.isMiniGame)
+            return;
+
         transform.position -= new Vector3(speed * Time.deltaTime, 0, 0);
         PlayerPrefs.SetFloat("speed", speed);
         PlayerPrefs.Save();

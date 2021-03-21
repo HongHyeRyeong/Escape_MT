@@ -20,9 +20,6 @@ public class SceneController : MonoBehaviour
     public List<float> scores = new List<float>();
     public Image fade;
 
-    private delegate void callback();
-    private callback fadeCallback;
-
     private void Awake()
     {
         if(instance !=null)
@@ -52,11 +49,6 @@ public class SceneController : MonoBehaviour
             SceneManager.LoadScene("TitleScene");
             SoundManager.Instance.SetBGM("Title");
         }));
-    }
-
-    public void ToMinigameScene()
-    {
-
     }
 
     public IEnumerator ShowFade(System.Action<bool> callback)
