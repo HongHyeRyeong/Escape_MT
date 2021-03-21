@@ -10,6 +10,11 @@ public class ButtonController : MonoBehaviour
     [SerializeField]
     private Slider volume;
 
+    public void OnClickGameScene()
+    {
+        SceneController.Instance.ToIngameScene();
+    }
+
     public void OptionController()
     {
         SoundManager.Instance.SetEffect("Click");

@@ -4,7 +4,7 @@ public class MapMove : MonoBehaviour
 {
     public static MapMove instance = null;
 
-    public float speed;
+    private float speed = 5;
 
     public Transform StartPos;
     public Transform EndPos;

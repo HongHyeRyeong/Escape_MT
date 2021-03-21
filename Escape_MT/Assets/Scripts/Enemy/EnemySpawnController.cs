@@ -10,6 +10,9 @@ public class EnemySpawnController : MonoBehaviour
 
     public GameObject curEnemy;
 
+    private Animator animator;
+    private bool isOpen;
+
     enum UpNDown
     {
         Up,
@@ -18,6 +21,11 @@ public class EnemySpawnController : MonoBehaviour
 
     [SerializeField] private UpNDown upn;
     [SerializeField] private float speed;
+
+    void Start()
+    {
+        animator = gameObject.GetComponent<Animator>();
+    }
 
     void Update()
     {
@@ -48,9 +56,18 @@ public class EnemySpawnController : MonoBehaviour
 
         if (other.gameObject.CompareTag("SpawnPoint"))
         {
+            isOpen = true;
+            animator.SetBool("isOpen", isOpen);
+
             randEnemy = Random.Range(0, 3);
             randPos = Random.Range(0, 2);
             curEnemy = Instantiate(enemy[randEnemy], this.transform);
+        }
+
+        if (other.gameObject.CompareTag("EndPos"))
+        {
+            isOpen = false;
+            animator.SetBool("isOpen", isOpen);
         }
     }
 }

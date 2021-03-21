@@ -55,13 +55,14 @@ public class UIManager : MonoBehaviour
     {
         UpdateScore(0);
         UpdateAlcoholGauge(0);
+        playTime.text = "Time\n0:0";
         ending.SetActive(false);
         gameResult.SetActive(false);
     }
 
     public void UpdateScore(float curScore)
     {
-        score.text = "Score  " + Mathf.Round(curScore).ToString();
+        score.text = "Score\n" + Mathf.Round(curScore).ToString();
     }
 
     public IEnumerator UpdatePlayTime()
@@ -69,7 +70,7 @@ public class UIManager : MonoBehaviour
         int time = 0;
         while (GameManager.Instance.isPlay)
         {
-            playTime.text = "Play Time " + (time / 60 > 0 ? (time / 60).ToString() + "분 " : "") + (time % 60).ToString() + "초";
+            playTime.text = "Time\n" + (time / 60).ToString() + ":" + (time % 60).ToString();
             yield return new WaitForSeconds(1f);
             time++;
         }

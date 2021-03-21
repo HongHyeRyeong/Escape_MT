@@ -2,7 +2,7 @@
 
 public class PlayerController : MonoBehaviour
 {
-    private readonly float Default_MoveSpeed = 4f;
+    private readonly float Default_MoveSpeed = 3f;
     private readonly int Attack_AlcoholGauge = 20;
     private readonly int Decrease_AlcoholGauge = 5;
     private readonly float AddScore_ArrowItem = 100;
@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Enemy"))
         {
-            int random = Random.Range(1, 5);
+            int random = Random.Range(1, 9);
 
             if (random == 1)
             {

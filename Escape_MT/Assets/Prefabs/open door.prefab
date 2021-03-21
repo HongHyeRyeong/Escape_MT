@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8031680777503021957}
-  - component: {fileID: 8031680777503021958}
   - component: {fileID: 1983081196887672511}
-  - component: {fileID: 1181343480567868476}
+  - component: {fileID: 3757827736640533793}
+  - component: {fileID: 2700741274046432798}
+  - component: {fileID: 9012193741148113208}
   m_Layer: 0
   m_Name: open door
   m_TagString: Untagged
@@ -27,15 +28,63 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8031680777503021959}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 27.17, y: 2.41, z: 5.5854497}
-  m_LocalScale: {x: 0.39387998, y: 0.39387998, z: 0.39387998}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 8031680777518622314}
   - {fileID: 8031680779228195784}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &8031680777503021958
+--- !u!114 &1983081196887672511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8031680777503021959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d5766d27caf898418406ee5ee803c55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy:
+  - {fileID: 6950579532457118153, guid: 34492660b4c5ee3409a6aa3d992d35ee, type: 3}
+  - {fileID: 3201120238199065203, guid: 4c435c06e74026346ba772a767d01fab, type: 3}
+  - {fileID: 8280309122388994745, guid: 443dbd65d87a7974cbf1df0b9d18386a, type: 3}
+  spawnPos:
+  - {fileID: 8031680777518622315}
+  - {fileID: 8031680779228195785}
+  curEnemy: {fileID: 0}
+  upn: 0
+  speed: 4
+--- !u!61 &3757827736640533793
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8031680777503021959}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0031448603, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 0.96}
+    newSize: {x: 1, y: 0.96}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.0062897, y: 0.95683765}
+  m_EdgeRadius: 0
+--- !u!212 &2700741274046432798
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -75,65 +124,36 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 34c50fe41ffcaba4abde2eeb56895f20, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6d70cb89710621c40bf54f121672798f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.12, y: 5.12}
+  m_Size: {x: 1, y: 0.96}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1983081196887672511
-MonoBehaviour:
+--- !u!95 &9012193741148113208
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8031680777503021959}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d5766d27caf898418406ee5ee803c55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemy:
-  - {fileID: 6950579532457118153, guid: 34492660b4c5ee3409a6aa3d992d35ee, type: 3}
-  - {fileID: 3201120238199065203, guid: 4c435c06e74026346ba772a767d01fab, type: 3}
-  - {fileID: 8280309122388994745, guid: 443dbd65d87a7974cbf1df0b9d18386a, type: 3}
-  spawnPos:
-  - {fileID: 8031680777518622315}
-  - {fileID: 8031680779228195785}
-  curEnemy: {fileID: 0}
-  upn: 0
-  speed: 4
---- !u!61 &1181343480567868476
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8031680777503021959}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.12, y: 5.12}
-    newSize: {x: 5.12, y: 5.12}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 5.12, y: 5.12}
-  m_EdgeRadius: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7eb357000f0021945a1e13173ffb84a5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8031680777518622315
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,7 +194,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8031680779228195784}
   m_Layer: 0
-  m_Name: SpawnPoint1
+  m_Name: SpawnPoint2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

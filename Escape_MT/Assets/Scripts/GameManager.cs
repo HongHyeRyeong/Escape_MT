@@ -2,7 +2,7 @@
 
 public class GameManager : MonoBehaviour
 {
-    private readonly float ItemSpawnTIme = 2f;
+    private readonly float ItemSpawnTIme = 4f;
 
     private static GameManager instance;
     public static GameManager Instance

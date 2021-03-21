@@ -15,8 +15,8 @@ public class Item : MonoBehaviour
 
     public void SetData()
     {
-        this.itemType = Random.Range(1, 3);
-        item.sprite = sprites[itemType];
+        this.itemType = Random.Range(1, 4);
+        item.sprite = sprites[itemType - 1];
 
         moveSpeed = Random.Range(2f, 4f);
     }

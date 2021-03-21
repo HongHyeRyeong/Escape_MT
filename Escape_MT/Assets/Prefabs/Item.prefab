@@ -47,9 +47,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item: {fileID: 4628586514246978003}
   sprites:
-  - {fileID: 21300000, guid: 7337f79b93f8b954d954ac4923259fa6, type: 3}
-  - {fileID: 21300000, guid: 170ad037c659c0a4da694f5e91af55e7, type: 3}
-  - {fileID: 21300000, guid: e5b276ed61109cf43b0bc3d49decd7e8, type: 3}
+  - {fileID: 21300000, guid: ae58d92c3517a654ea47e23c0d653f14, type: 3}
+  - {fileID: 21300000, guid: b395f0e3aa974ac4bbd8278d34160442, type: 3}
+  - {fileID: 21300000, guid: 00d6b23d7f2c84e4395693b3aebf2d52, type: 3}
   itemType: 0
 --- !u!58 &6165831915874994032
 CircleCollider2D:
@@ -93,7 +93,7 @@ Transform:
   m_GameObject: {fileID: 2295633455478940817}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children: []
   m_Father: {fileID: 7610691019382247949}
   m_RootOrder: 0

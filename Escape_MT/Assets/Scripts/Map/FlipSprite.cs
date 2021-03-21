@@ -2,12 +2,7 @@
 
 public class FlipSprite : MonoBehaviour
 {
-    SpriteRenderer rend;
-
-    void Start()
-    {
-        rend = GetComponent<SpriteRenderer>();
-    }
+    public SpriteRenderer rend;
 
     void Update()
     {

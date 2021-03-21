@@ -1,177 +1,152 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Minigame1Controller : MonoBehaviour
 {
-    private bool gameRun;
+    private readonly float GameTime = 40f;
+    private float TurnTime = 7f;
 
-    private int sequence;
-    private bool myTurn;
-
-    [SerializeField] private float maxTime;
-    [SerializeField] private float curTime;
-
-    [SerializeField] private float maxGameTime;
-    [SerializeField] private float curGameTime;
-
-    [SerializeField] private Slider slider;
-    [SerializeField] private Text enemyTxt;
-    [SerializeField] private Text playerTxt;
+    public Text script;
+    public Text enemy;
+    public Text player;
+    public Slider totalTimeS;
+    public Slider turnTimeS;
 
     void OnEnable()
     {
-        sequence = 1;
-        myTurn = false;
-        curGameTime = 0;
-        curTime = maxTime;
-        gameRun = true;
+        TurnTime = 7f;
+
+        enemy.text = "";
+        player.text = "";
+        script.gameObject.transform.parent.gameObject.SetActive(true);
+        totalTimeS.gameObject.SetActive(false);
+        totalTimeS.value = 1;
+        turnTimeS.gameObject.SetActive(false);
+        turnTimeS.value = 1;
+
+        StartCoroutine(StartGame());
     }
-
-    void Update()
+    private IEnumerator StartGame()
     {
-        if(curGameTime <= maxGameTime && gameRun)
-        {
-            MiniGameSystem();
-            EnemySystem();
-        }
-        else
-        {
-            this.gameObject.SetActive(false);
-            GameManager.Instance.EndMiniGame(true);
-        }
-        slider.maxValue = maxTime;
-        slider.minValue = 0;
-        slider.value = curTime;
+        script.text = "";
+        yield return new WaitForSeconds(0.5f);
 
-        curGameTime += Time.deltaTime;
-    }
+        script.text = "어른이 먼저지";
+        yield return new WaitForSeconds(2f);
+        script.gameObject.transform.parent.gameObject.SetActive(false);
 
-    private void MiniGameSystem()
-    {
-        if (myTurn)
+        totalTimeS.gameObject.SetActive(true);
+        turnTimeS.gameObject.SetActive(true);
+
+        bool fail;
+
+        bool turn = false;
+        float totalTime = GameTime, turnTime = TurnTime;
+        int index = 0;  // 0 탕 1 수 2 육
+        while (true)
         {
-            if (curTime >= 0)
+            if (turn)
             {
-                Debug.Log("내 차례 : " + sequence);
-                if (Input.GetKeyDown(KeyCode.Alpha1))
+                if (Input.GetKeyDown(KeyCode.Keypad1))
                 {
-                    SequenceChk(1);
-                }
-                else if (Input.GetKeyDown(KeyCode.Alpha2))
-                {
-                    SequenceChk(2);
-                }
-                else if (Input.GetKeyDown(KeyCode.Alpha3))
-                {
-                    if (sequence == 3)
+                    Debug.Log("Input : 탕");
+
+                    if ("탕수육".Substring(index, 1) == "탕수육".Substring(0, 1))
                     {
-                        PrintSequence();
-                        sequence = 1;
+                        player.text = "탕수육".Substring(index, 1);
+
+                        turn = false;
+                        turnTime = TurnTime;
+
+                        index++;
+                        if (index == 3)
+                            index = 0;
                     }
                     else
                     {
-                        GameOver();
+                        fail = true;
+                        break;
                     }
-
-                    myTurn = false;
                 }
 
+                if (Input.GetKeyDown(KeyCode.Keypad2))
+                {
+                    Debug.Log("Input : 수");
+
+                    if ("탕수육".Substring(index, 1) == "탕수육".Substring(1, 1))
+                    {
+                        player.text = "탕수육".Substring(index, 1);
+
+                        turn = false;
+                        turnTime = TurnTime;
+
+                        index++;
+                        if (index == 3)
+                            index = 0;
+                    }
+                    else
+                    {
+                        fail = true;
+                        break;
+                    }
+                }
+
+                if (Input.GetKeyDown(KeyCode.Keypad3))
+                {
+                    if ("탕수육".Substring(index, 1) == "탕수육".Substring(2, 1))
+                    {
+                        player.text = "탕수육".Substring(index, 1);
+
+                        turn = false;
+                        turnTime = TurnTime;
+
+                        index++;
+                        if (index == 3)
+                            index = 0;
+                    }
+                    else
+                    {
+                        fail = true;
+                        break;
+                    }
+                }
+
+                turnTime -= Time.deltaTime;
+                if (turnTimeS.gameObject.activeSelf == false)
+                    turnTimeS.gameObject.SetActive(true);
+                turnTimeS.value = turnTime / TurnTime;
+                if (turnTime < 0)
+                {
+                    fail = true;
+                    break;
+                }
             }
             else
             {
-                GameOver();
+                enemy.text = "탕수육".Substring(index, 1);
+
+                turn = true;
+                TurnTime -= 0.3f;
+                TurnTime = Mathf.Max(1f, TurnTime);
+
+                index++;
+                if (index == 3)
+                    index = 0;
             }
-        }
-        curTime -= Time.deltaTime;
 
-    }
-
-    private void SequenceChk(int _sequence)
-    {
-        if(sequence == _sequence)
-        {
-            PrintSequence();
-            sequence++;
-        }
-        else
-        {
-            GameOver();
-        }
-
-        myTurn = false;
-    }
-
-    private void EnemySystem()
-    {
-        if (!myTurn)
-        {
-            curTime = maxTime;
-            Debug.Log("선배 차례 : " + sequence);
-            PrintSequence();
-            myTurn = true;
-            sequence++;
-            if (sequence == 4)
+            totalTime -= Time.deltaTime;
+            totalTimeS.value = totalTime / GameTime;
+            if (totalTime < 0)
             {
-                sequence = 1;
+                fail = false;
+                break;
             }
-        }
-    }
 
-    private void PrintSequence()
-    {
-        switch (sequence)
-        {
-            case 1:
-                Debug.Log("탕");
-                if (!myTurn)
-                {
-                    enemyTxt.text = "탕";
-                }
-                else
-                {
-                    playerTxt.text = "탕";
-                }
-                break;
-            case 2:
-                Debug.Log("수");
-                if (!myTurn)
-                {
-                    enemyTxt.text = "수";
-                }
-                else
-                {
-                    playerTxt.text = "수";
-                }
-                break;
-            case 3:
-                Debug.Log("육");
-                if (!myTurn)
-                {
-                    enemyTxt.text = "육";
-                }
-                else
-                {
-                    playerTxt.text = "육";
-                }
-                break;
-            default:
-                Debug.Log("아웃");
-                break;
+            yield return null;
         }
 
-        if (sequence == 4)
-        {
-            sequence = 1;
-        }
-    }
-
-    private void GameOver()
-    {
-        gameRun = false;
         gameObject.SetActive(false);
-
-        GameManager.Instance.EndMiniGame(false);
+        GameManager.Instance.EndMiniGame(fail);
     }
 }
